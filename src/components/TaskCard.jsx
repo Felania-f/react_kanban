@@ -1,7 +1,7 @@
 import React from 'react';
 
 function TaskCard({ task, onEdit, onDelete }) {
-  // Les dates pour affichage
+  //les dates pour affichage
   const formatDate = (dateString) => {
     if (!dateString) return 'Non définie';
     const date = new Date(dateString);

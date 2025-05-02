@@ -1,78 +1,3 @@
-// // import React from 'react';
-// // import KanbanBoard from './components/KanbanBoard.jsx';
-// // import TaskForm from './components/TaskForm.jsx';
-// // // import { TaskStatus } from './Task';
-
-// // const App = () => {
-// //   const [tasks, setTasks] = React.useState([]);
-
-// //   const addTask = (task) => {
-// //     setTasks([...tasks, task]);
-// //   };
-
-// //   const updateTaskStatus = (taskId, newStatus) => {
-// //     const updatedTasks = tasks.map(task =>
-// //       task.id === taskId ? { ...task, status: newStatus } : task
-// //     );
-// //     setTasks(updatedTasks);
-// //   };
-
-// //   const deleteTask = (taskId) => {
-// //     const filteredTasks = tasks.filter(task => task.id !== taskId);
-// //     setTasks(filteredTasks);
-// //   };
-
-// //   return (
-// //     <div>
-// //       <h1>Tableau Kanban</h1>
-// //       <TaskForm addTask={addTask} />
-// //       <KanbanBoard tasks={tasks} updateTaskStatus={updateTaskStatus} deleteTask={deleteTask} />
-// //     </div>
-// //   );
-// // };
-
-// // export default App;
-
-
-// import React, { useState } from 'react';
-// import KanbanBoard from './components/KanbanBoard';
-// import TaskForm from './components/TaskForm';
-// import Task from './models/Task';
-
-// function App() {
-//   const [tasks, setTasks] = useState([]);
-//   const [isAdding, setIsAdding] = useState(false);
-
-//   const handleAddTask = (newTask) => {
-//     setTasks([...tasks, newTask]);
-//     setIsAdding(false);
-//   };
-
-//   const handleEditTask = (updatedTask) => {
-//     setTasks(tasks.map(task =>
-//       task.getTitre() === updatedTask.getTitre() ? updatedTask : task
-//     ));
-//   };
-
-//   const handleDeleteTask = (taskToDelete) => {
-//     setTasks(tasks.filter(task => task.getTitre() !== taskToDelete.getTitre()));
-//   };
-
-//   return (
-//     <div>
-//       <h1>Kanban Board</h1>
-//       <button onClick={() => setIsAdding(true)}>Ajouter une tâche</button>
-//       {isAdding && <TaskForm onSubmit={handleAddTask} />}
-//       <KanbanBoard
-//         tasks={tasks}
-//         onEditTask={handleEditTask}
-//         onDeleteTask={handleDeleteTask}
-//       />
-//     </div>
-//   );
-// }
-
-// export default App;
 import React, { useState, useEffect } from 'react';
 import KanbanBoard from './components/KanbanBoard';
 import TaskForm from './components/TaskForm';
@@ -83,7 +8,6 @@ function App() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
 
-  // Charger les tâches depuis le localStorage au démarrage
   useEffect(() => {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
@@ -96,7 +20,6 @@ function App() {
     }
   }, []);
 
-  // Sauvegarder les tâches dans le localStorage à chaque modification
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks.map(task => task.toJSON())));
   }, [tasks]);
@@ -112,12 +35,11 @@ function App() {
   };
 
   const handleUpdateTask = (updatedTask) => {
-    // Utiliser l'ID pour identifier et mettre à jour la tâche
     const updatedTasks = tasks.map(task =>
       task.getId() === updatedTask.getId() ? updatedTask : task
     );
     setTasks(updatedTasks);
-    setEditingTask(null); // Fermer le formulaire d'édition
+    setEditingTask(null);
   };
 
   const handleDeleteTask = (taskToDelete) => {
@@ -130,9 +52,8 @@ function App() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Tableau Kanban</h1>
+      <h1>TO DO LIST</h1>
 
-      {/* Formulaire d'ajout */}
       <button
         onClick={() => setShowAddForm(!showAddForm)}
         style={{ marginBottom: '20px', padding: '8px 16px' }}
@@ -141,7 +62,7 @@ function App() {
       </button>
 
       {showAddForm && (
-        <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ddd', borderRadius: '8px' }}>
+        <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #ddd', borderRadius: '8px', width: '20%' }}>
           <h2>Nouvelle tâche</h2>
           <TaskForm
             onSubmit={handleAddTask}
@@ -150,7 +71,6 @@ function App() {
         </div>
       )}
 
-      {/* Formulaire d'édition modal */}
       {editingTask && (
         <div style={{
           position: 'fixed',
@@ -168,7 +88,7 @@ function App() {
             backgroundColor: 'white',
             padding: '20px',
             borderRadius: '8px',
-            maxWidth: '500px',
+            maxWidth: '400px',
             width: '90%'
           }}>
             <h2>Modifier la tâche</h2>

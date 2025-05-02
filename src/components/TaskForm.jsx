@@ -1,10 +1,9 @@
-// export default TaskForm;
 import React, { useState } from 'react';
 import Task from '../models/Task';
 import { TaskStatus } from '../models/Task';
 
 function TaskForm({ task, onSubmit, onCancel }) {
-  //initialiser avec les valeurs de la tâche ou des valeurs vides
+  //initialiser avec les valeurs de la tâche
   const [formData, setFormData] = useState({
     titre: task ? task.getTitre() : '',
     auteur: task ? task.getAuteur() : '',
@@ -55,7 +54,7 @@ function TaskForm({ task, onSubmit, onCancel }) {
     border: '1px solid #ddd',
     borderRadius: '4px',
     fontSize: '14px',
-    width: '100%'
+    width: '90%'
   };
 
   return (
